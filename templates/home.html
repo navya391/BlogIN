@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bootstrap Blog - B4 Template by Bootstrap Temple</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Custom icon font-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/css/fontastic.css">
+    <!-- Google fonts - Open Sans-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <!-- Fancybox-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/vendor/@fancyapps/fancybox/jquery.fancybox.min.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  </head>
+  <body>
+    <header class="header">
+      <!-- Main Navbar-->
+      <nav class="navbar navbar-expand-lg">
+        <div class="search-area">
+          <div class="search-area-inner d-flex align-items-center justify-content-center">
+            <div class="close-btn"><i class="icon-close"></i></div>
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-8">
+                <form method="GET" action="/search" class="d-flex">
+                    {% csrf_token %}
+                    <div class="form-group">
+                  <input class="form-control me-2" name="query" id="search" type="search" aria-label="Search">
+                  <button class="submit" type="submit"><i class="icon-search-1"></i>Search</button>
+                    </div>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <!-- Navbar Brand -->
+          <div class="navbar-header d-flex align-items-center justify-content-between">
+            <!-- Navbar Brand --><a href="" class="navbar-brand">BlogIN</a>
+            <!-- Toggle Button-->
+            <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
+          </div>
+          <!-- Navbar Menu -->
+          <div id="navbarcollapse" class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+              
+              <li class="nav-item"><a href=" {% url 'post' %}" class="nav-link active ">Blog</a>
+              </li>
+             
+              <li class="nav-item dropdown">
+                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categories
+                </a>
+               
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {% for category in categories %}
+                  <li><a href="/filter_category/{{ category.id }}" class="category" role="button" id="{{ category.name }}">{{ category.name }}</a></li>
+                  {% endfor %} 
+                </ul>
+                
+                </li>
+              
+            </ul> 
+
+
+            <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
+            <ul class="navbar-nav ml-auto">
+                
+                <button type="button"  class="btn btn-outline-secondary ms-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Signin
+                </button>
+                
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                              <form action="/signin" method="POST">
+                                {% csrf_token %}
+                                  <div class=" mb-4 ms-4 mt-4">
+                                      <h5>Sign In</h5>
+                                  </div>
+
+                                <div class="mb-4 ms-4 me-4">
+                                  <label for="username1" class="form-label">Username</label>
+                                  <input type="text" class="form-control" id="username1" name="username1" aria-describedby="usernameHelp">
+                                </div>
+                                <div class="mb-4 ms-4 me-4">
+                                  <label for="password1" class="form-label">Password</label>
+                                  <input type="password" class="form-control" id="password1" name="password1">
+                                </div>
+                                <button type="submit" class="btn btn-success ms-4 mb-4 me-4">Submit</button>
+                                
+                              </form>
+                          </div>
+                    </div>
+                </div>
+
+                
+                <button type="button" class="btn btn-outline-secondary ms-4" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                    Signup
+                </button>
+                
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form action="/signup" method="POST">
+                                {% csrf_token %}
+                                <div class=" mb-4 ms-4 mt-4">
+                                    <h5>Sign Up</h5>
+                                </div>
+
+                              <div class="mb-4 ms-4 me-4">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name ="username"aria-describedby="usernameHelp" required>
+                                </div>
+                              <div class="mb-4 ms-4 me-4">
+                                <label for="fname" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="fname" name ="fname"aria-describedby="fnameHelp" required>
+                              </div>
+                              <div class="mb-4 ms-4 me-4">
+                                <label for="lname" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lname" name ="lname"aria-describedby="lnameHelp" required>
+                              </div>
+                              <div class="mb-4 ms-4 me-4">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name ="email"aria-describedby="emailHelp" required>
+                              </div>
+                              <div class="mb-4 ms-4 me-4">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                              </div>
+                              <div class="mb-4 ms-4 me-4">
+                                  <label for="cpassword" class="form-label">Confirm Password</label>
+                                  <input type="password" class="form-control" id="cpassword" name="cpassword" required>
+                                </div>
+                              <button type="submit" class="btn btn-success ms-4 mb-4 me-4">Submit</button>
+                            </form>
+                          </div>
+                    </div>
+
+                </div>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Hero Section-->
+    <section style="background: url(https://cdn.pixabay.com/photo/2015/05/13/22/22/workspace-766045_960_720.jpg); background-size: cover; background-position: center center" class="hero text-white fw-bold font-monospace">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7">
+            <h1 class="text-white fw-bold fw-bold"> <strong>BlogIN</strong></h1>
+          </div>
+        </div><a href=".intro" class="continue link-scroll"><i class="fa fa-long-arrow-down"></i> Scroll Down</a>
+      </div>
+    </section>
+    <!-- Intro Section-->
+    <section class="intro">
+      <div class="container mx-auto"  >
+        <div class="row " >
+          <div class="col-lg-8">
+            <h1 class="text-black fw-bold fw-bold ms-5 ps-4 mb-4 ">Welcome To BlogIN</h1>
+            <h3 class=" text-big">
+                <ul>
+                    <div class="d-flex justify-content-evenly ms-3 mb-3 mt-3 pt-4">
+                        <li class="me-1 pe-3 ">Create Blogs</li>
+                        <li class="me-5">View  Bloggers  Profile</li>
+                        </div>
+                    <div class="d-flex justify-content-evenly ms-4  mb-4 mt-4 ">
+                        <li class="me-3 pe-4">Add Profile</li>
+                        <li class=" ps-6">Like , Comment ,Edit & Delete</li>
+                        </div>
+                    <div class="d-flex justify-content-evenly me-5 mb-4 mt-4 "> 
+                            <li class="ms-1 pe-3">View Blogs</li>
+                            <li class="ms-1 me-4"> View Blogs according <br> To Category</li>
+                        </div>
+                  </ul>
+                </li>
+                
+              </ul>
+            </h3>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="container">
+        
+    <section class="featured-posts no-padding-top">
+      <div class="container">
+        <!-- Post-->
+        <div class="row text-center">
+            <div class="col-md-6">
+                <img src="https://www.thebeijinger.com/sites/default/files/thebeijinger/blog-images/357981/header.jpg" alt="..." style="width:650px;  height:330px;">
+            </div>
+            <div class="col-md-6" style="background-color: rgb(243, 243, 253);height:330px;">
+                <div class="text-inner d-flex ">
+                <div class="content">
+                    <header class="post-header">
+                       
+                      <div class="category">Food ,That Makes Your mood Enlighten</div>
+                        <h2 class="h4">Discover New Recipes and Dishes that you have never known Before</h2>
+                    </header>
+                    <p class="fs-6">Food blogs cover recipes, restaurant reviews, and every other aspect of the foodie world, and are often accompanied by gorgeous food photography. It is very easy to get into the food blogging world, as all you need is access to a blogging platform (such as Blogger, Typepad or Wordpress) and a love for great food.</p>
+                  </div>
+                  </div>
+            </div>
+        </div>
+    
+        <!-- Post        -->
+        <div class="row text-center">
+          <div class="col-md-6">
+            <img src="https://treasurytoday.com/-/media/images/technology/treasury-systems/2019-07-08-tta-08-t__business-technology-software-development-iot-concept-1187255977__1920x1080.jpg" alt="..." style="width:650px;  height:330px;">
+            </div>
+            <div class="col-md-6" style="background-color: rgb(243, 243, 253);height:330px;">
+              <div class="text-inner d-flex ">
+              <div class="content">
+                  <header class="post-header">
+                    <div class="category">Technology ,That evolves us</div>
+                      <h2 class="h4">Discover New Technology that you have never known Before</h2></a>
+                  </header>
+                  <p class="fs-6">Technical blogging is a great way to share your expertise while building a potentially valuable readership. It can help you to document projects, or provide guidance to other web users. You can also monetize your content, or use your blog to market your services.</p>
+                </div>
+                </div>
+          </div>
+      </div>
+      </div>
+        <!-- Post                            -->
+        <div class="row text-center">
+          <div class="col-md-6">
+              <img src="https://images.indianexpress.com/2019/07/travelling_759-1.jpg" alt="..." style="width:650px;  height:330px;">
+          </div>
+          <div class="col-md-6" style="background-color: rgb(243, 243, 253);height:330px;">
+              <div class="text-inner d-flex ">
+              <div class="content">
+                  <header class="post-header">
+                     
+                    <div class="category">Travelling ,Have Fun And Enjoy</div>
+                      <h2 class="h4">Discover New Places and Destinations that you have never seen Before</h2>
+                  </header>
+                  <p class="fs-6">Travel blogs introduce you to places, activities and adventures you didn't even know existed. Travel bloggers are storytellers. We all need stories to expand our horizons.</p>
+                </div>
+                </div>
+          </div>
+      </div>
+      </div>
+    </section>
+    <!-- Divider Section-->
+    
+    <!-- Latest Posts -->
+    <section class="latest-posts"> 
+     
+      <div class="container" style=" height:580px;">
+        <header> 
+          <h2>Latest from the blog</h2>
+          
+        </header>
+        <div class="row">
+          {% for p in post %}
+          <div class="col-lg-4 col-md-6 mb-2-6 " >
+              <article class="card card-style " style="width:500px; height:500px;">
+                  <div class="card-img">
+                      {% if p.image %}
+                      <img class="rounded-top" src="{{MEDIA_URL}}{{ p.image.url }}" style="width:500px; height:250px;" alt="...">
+                      {% endif %}
+                  </div>
+                  <div class="card-body" >
+                      <h3>{{ p.title }}</h3>
+                      in
+                      <h4>{{ p.category }}</h4>
+                      <p class="display-30">{{ p.post|truncatewords:5 }}</p>
+                      <a href="/fullpost/{{ p.id }}" class="read-more">read more</a>
+                      <p>{{ p.date }}</p>
+                     
+                  </div>
+                  
+              </article>
+          </div>
+          {% endfor %}
+          
+        
+         
+         
+        </div>
+      </div>
+    </section>
+    
+    <!-- Gallery Section-->
+    <section class="gallery no-padding cover">    
+      <div class=" row cover">
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+          <div class="item"><img src="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/img/gallery-1.jpg" alt="..." class="img-fluid">
+              </a></div>
+        </div>
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+          <div class="item"><a href="img/gallery-2.jpg"  ><img src="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/img/gallery-2.jpg" alt="..." class="img-fluid" style="width:400px;">
+             </a></div>
+        </div>
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+          <div class="item"><a href="img/gallery-3.jpg"  ><img src="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/img/gallery-3.jpg" alt="..." class="img-fluid">
+              </a></div>
+        </div>
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+          <div class="item"><a href="img/gallery-4.jpg"  ><img src="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/img/gallery-4.jpg" alt="..." class="img-fluid">
+              </div></a></div>
+        </div>
+        
+      </div>
+    </section>
+    <!-- Page Footer-->
+    <footer class="main-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="logo">
+              <h6 class="text-white">BlogIn</h6>
+            </div>
+            
+          </div>
+          
+          
+        </div>
+      </div>
+      <div class="copyrights">
+        <div class="container">
+          <div class="row">
+            <div>
+              Navya Mittal
+              Made With Love
+            </div>
+            <div class="col-md-6">
+              <p>&copy; 2021. All rights reserved. </p>
+            </div>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </footer>
+
+    
+    <!-- JavaScript files-->
+    <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/vendor/jquery/jquery.min.js"></script>
+    <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
+    <script src="https://d19m59y37dris4.cloudfront.net/blog/1-2-1/js/front.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  </body>
+</html>.
